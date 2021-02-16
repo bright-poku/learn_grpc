@@ -5,9 +5,8 @@ import (
 	"log"
 	"time"
 
-	pb "productinfo/client/ecommerce"
-
 	"google.golang.org/grpc"
+	pb "productinfo/client/ecommerce"
 )
 
   const (
@@ -25,17 +24,17 @@ import (
 
 	  name := "Apple Iphone 12"
 	  description := "meet the new Apple Iphone"
-
-	  price := float32(1000.0)
+	  //price := float32(1000.0)
 	  ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	  defer cancel()
-	  r, err := c.AddProduct(ctx, &pb.Product{Name: name, Description: description, Price: price})
+
+	  r, err := c.AddProduct(ctx, &pb.Product{Name: name, Description: description, Id: "1"})
 	  if err != nil {
 		  log.Fatalf("Could not add product: %v", err)
 	  }
 	  log.Printf("Product ID: %s added successfully", r.Value)
 
-	  product, err := c.GetProduct(ctx, &pb.ProductID{Value: r.value})
+	  product, err := c.GetProduct(ctx, &pb.ProductID{Value: r.Value})
 	  if err != nil {
 		  log.Fatalf("Could not get product: %v", err)
 	  }
